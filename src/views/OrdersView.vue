@@ -11,7 +11,7 @@
           <v-card-text>
             <v-list>
               <v-list-item
-                v-for="order in orders"
+                v-for="order in allOrders"
                 :key="order.id"
               >
                 <template v-slot:prepend>
@@ -42,33 +42,16 @@
 export default {
   data() {
     return {
-      orders: [
-        {
-          id: 1,
-          carTitle: 'Toyota Camry 2022',
-          name: 'Иван Иванов',
-          phone: '+7 (999) 123-45-67',
-          status: 'pending',
-          selected: false
-        },
-        {
-          id: 2,
-          carTitle: 'Honda Civic 2021',
-          name: 'Петр Петров',
-          phone: '+7 (888) 987-65-43',
-          status: 'confirmed',
-          selected: false
-        },
-        {
-          id: 3,
-          carTitle: 'Nissan Altima 2020',
-          name: 'Сергей Сергеев',
-          phone: '+7 (777) 555-22-11',
-          status: 'completed',
-          selected: false
-        }
-      ]
+      orders: []
     }
+  },
+  computed: {
+    allOrders() {
+      return this.$store.getters['orders/allOrders']
+    }
+  },
+  created() {
+    this.$store.dispatch('orders/fetchOrders')
   },
   methods: {
     getStatusText(status) {
