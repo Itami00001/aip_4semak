@@ -25,6 +25,10 @@ export default {
     LOGIN_USER(state, userData) {
       state.user = userData
       state.token = 'mock-token-' + Date.now()
+    },
+    LOGOUT(state) {
+      state.user = null
+      state.token = null
     }
   },
   actions: {
@@ -46,6 +50,9 @@ export default {
         commit('LOGIN_USER', userData)
         return userData
       })
+    },
+    logout({ commit }) {
+      commit('LOGOUT')
     }
   }
 }
