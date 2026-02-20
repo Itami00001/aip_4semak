@@ -106,8 +106,24 @@ export default {
   methods: {
     createAd() {
       if (this.$refs.form.validate()) {
-        console.log('Creating ad:', this.car)
-        // Здесь будет логика сохранения объявления
+        const carData = {
+          title: `${this.car.brand} ${this.car.model} ${this.car.year}`,
+          image: `https://via.placeholder.com/300x200?text=${this.car.brand}+${this.car.model}`,
+          price: this.car.price,
+          year: parseInt(this.car.year),
+          mileage: this.car.mileage,
+          description: this.car.description,
+          phone: this.car.phone
+        }
+
+        this.$store.dispatch('cars/createCar', carData)
+          .then(() => {
+            console.log('Объявление создано успешно')
+            this.$router.push('/list')
+          })
+          .catch(error => {
+            console.error('Ошибка создания объявления:', error)
+          })
       }
     }
   }
