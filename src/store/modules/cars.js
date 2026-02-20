@@ -32,6 +32,12 @@ export default {
         state.cars.splice(index, 1, updatedCar)
       }
     },
+    DELETE_CAR(state, carId) {
+      const index = state.cars.findIndex(car => car.id === carId)
+      if (index !== -1) {
+        state.cars.splice(index, 1)
+      }
+    },
     SET_USER_ID(state, userId) {
       state.userId = userId
     }
@@ -64,6 +70,13 @@ export default {
         // Здесь будет API запрос для обновления объявления
         commit('UPDATE_CAR', carData)
         return carData
+      })
+    },
+    deleteCar({ commit, dispatch }, carId) {
+      return dispatch('shared/requestHandler', async () => {
+        // Здесь будет API запрос для удаления объявления
+        commit('DELETE_CAR', carId)
+        return carId
       })
     }
   }
