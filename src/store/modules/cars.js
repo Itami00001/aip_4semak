@@ -1,11 +1,16 @@
 export default {
   state: {
-    cars: []
+    cars: [],
+    userId: null
   },
   getters: {
     allCars: state => state.cars,
     getCarById: (state) => (id) => {
       return state.cars.find(car => car.id === id)
+    },
+    myAds: (state) => {
+      if (!state.userId) return []
+      return state.cars.filter(car => car.userId === state.userId)
     }
   },
   mutations: {
@@ -16,9 +21,13 @@ export default {
       const newCar = {
         id: Date.now(),
         ...car,
+        userId: state.userId,
         createdAt: new Date().toISOString()
       }
       state.cars.push(newCar)
+    },
+    SET_USER_ID(state, userId) {
+      state.userId = userId
     }
   },
   actions: {
@@ -37,9 +46,12 @@ export default {
       ]
       commit('SET_CARS', cars)
     },
-    createCar({ commit }, carData) {
-      commit('CREATE_CAR', carData)
-      return Promise.resolve()
+    createCar({ commit, dispatch }, carData) {
+      return dispatch('shared/requestHandler', async () => {
+        // Здесь будет API запрос для создания объявления
+        commit('CREATE_CAR', carData)
+        return carData
+      })
     }
   }
 }
