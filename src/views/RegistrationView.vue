@@ -69,7 +69,19 @@ export default {
   methods: {
     register() {
       if (this.$refs.form.validate()) {
-        console.log('Registration attempt:', this.email, this.password)
+        const userData = {
+          email: this.email,
+          password: this.password
+        }
+
+        this.$store.dispatch('user/registerUser', userData)
+          .then(() => {
+            console.log('Регистрация успешна:', this.email)
+            this.$router.push('/login')
+          })
+          .catch(error => {
+            console.error('Ошибка регистрации:', error)
+          })
       }
     }
   }
