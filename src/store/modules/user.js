@@ -21,6 +21,10 @@ export default {
         createdAt: new Date().toISOString()
       }
       state.user = newUser
+    },
+    LOGIN_USER(state, userData) {
+      state.user = userData
+      state.token = 'mock-token-' + Date.now()
     }
   },
   actions: {
@@ -28,6 +32,18 @@ export default {
       return dispatch('shared/requestHandler', async () => {
         // Здесь будет API запрос для регистрации
         commit('REGISTER_USER', userData)
+        return userData
+      })
+    },
+    loginUser({ commit, dispatch }, credentials) {
+      return dispatch('shared/requestHandler', async () => {
+        // Здесь будет API запрос для логина
+        const userData = {
+          id: Date.now(),
+          email: credentials.email,
+          name: 'User ' + credentials.email.split('@')[0]
+        }
+        commit('LOGIN_USER', userData)
         return userData
       })
     }

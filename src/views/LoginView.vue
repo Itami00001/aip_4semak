@@ -56,7 +56,19 @@ export default {
   methods: {
     login() {
       if (this.$refs.form.validate()) {
-        console.log('Login attempt:', this.email, this.password)
+        const credentials = {
+          email: this.email,
+          password: this.password
+        }
+
+        this.$store.dispatch('user/loginUser', credentials)
+          .then(() => {
+            console.log('Вход выполнен успешно:', this.email)
+            this.$router.push('/')
+          })
+          .catch(error => {
+            console.error('Ошибка входа:', error)
+          })
       }
     }
   }
