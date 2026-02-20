@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import RegistrationView from '../views/RegistrationView.vue'
 import OrdersView from '../views/OrdersView.vue'
 import NewCarView from '../views/NewCarView.vue'
+import CarListView from '../views/CarListView.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/new',
     name: 'new-car',
     component: NewCarView
+  },
+  {
+    path: '/list',
+    name: 'car-list',
+    component: CarListView
   }
 ]
 
