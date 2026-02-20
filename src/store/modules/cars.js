@@ -26,6 +26,12 @@ export default {
       }
       state.cars.push(newCar)
     },
+    UPDATE_CAR(state, updatedCar) {
+      const index = state.cars.findIndex(car => car.id === updatedCar.id)
+      if (index !== -1) {
+        state.cars.splice(index, 1, updatedCar)
+      }
+    },
     SET_USER_ID(state, userId) {
       state.userId = userId
     }
@@ -50,6 +56,13 @@ export default {
       return dispatch('shared/requestHandler', async () => {
         // Здесь будет API запрос для создания объявления
         commit('CREATE_CAR', carData)
+        return carData
+      })
+    },
+    updateCar({ commit, dispatch }, carData) {
+      return dispatch('shared/requestHandler', async () => {
+        // Здесь будет API запрос для обновления объявления
+        commit('UPDATE_CAR', carData)
         return carData
       })
     }
