@@ -24,9 +24,12 @@ export default {
     }
   },
   actions: {
-    registerUser({ commit }, userData) {
-      commit('REGISTER_USER', userData)
-      return Promise.resolve()
+    registerUser({ commit, dispatch }, userData) {
+      return dispatch('shared/requestHandler', async () => {
+        // Здесь будет API запрос для регистрации
+        commit('REGISTER_USER', userData)
+        return userData
+      })
     }
   }
 }
