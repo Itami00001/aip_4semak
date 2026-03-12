@@ -1,5 +1,4 @@
 import users from '@/data/users.json'
-import fs from 'fs'
 
 export default {
   state: {
@@ -27,14 +26,6 @@ export default {
       }
       state.users.push(newUser)
       state.user = newUser
-      
-      // Сохраняем в JSON файл
-      try {
-        const updatedUsers = [...state.users]
-        fs.writeFileSync('./src/data/users.json', JSON.stringify(updatedUsers, null, 2))
-      } catch (error) {
-        console.error('Ошибка сохранения пользователя:', error)
-      }
     },
     LOGIN_USER(state, userData) {
       state.user = userData
