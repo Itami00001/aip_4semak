@@ -1,6 +1,20 @@
 <template>
   <v-app>
-    <v-navigation-drawer app v-model="drawer"></v-navigation-drawer> 
+    <v-navigation-drawer app v-model="drawer">
+      <v-list>
+        <v-list-item
+          v-for="link in menuLinks"
+          :key="link.title"
+          :to="link.url"
+          @click="link.click && link.click()"
+        >
+          <template v-slot:prepend>
+            <v-icon :icon="link.icon"></v-icon>
+          </template>
+          <v-list-item-title>{{ link.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-app-bar app dark color="primary">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
@@ -10,6 +24,8 @@
           :key="link.title"
           :to="link.url"
           @click="link.click && link.click()"
+          color="white"
+          variant="text"
         >
           <v-icon start :icon="link.icon"></v-icon>
           {{ link.title }}

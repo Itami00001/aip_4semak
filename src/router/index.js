@@ -6,6 +6,7 @@ import OrdersView from '../views/OrdersView.vue'
 import NewCarView from '../views/NewCarView.vue'
 import CarListView from '../views/CarListView.vue'
 import CarDetailView from '../views/CarDetailView.vue'
+import CarsView from '../views/CarsView.vue'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/list',
     name: 'car-list',
     component: CarListView
+  },
+  {
+    path: '/cars',
+    name: 'cars',
+    component: CarsView
   },
   {
     path: '/car/:id',
