@@ -11,7 +11,7 @@
           <v-card-text>
             <v-list>
               <v-list-item
-                v-for="car in myCars"
+                v-for="car in myAds"
                 :key="car.id"
               >
                 <template v-slot:prepend>
@@ -37,39 +37,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      myCars: [
-        {
-          id: 1,
-          title: 'Toyota Camry 2022',
-          image: 'https://via.placeholder.com/100x100?text=Toyota+Camry',
-          price: '2,500,000 ₽',
-          year: 2022,
-          mileage: '15,000 км',
-          status: 'active'
-        },
-        {
-          id: 2,
-          title: 'Honda Civic 2021',
-          image: 'https://via.placeholder.com/100x100?text=Honda+Civic',
-          price: '1,800,000 ₽',
-          year: 2021,
-          mileage: '25,000 км',
-          status: 'pending'
-        },
-        {
-          id: 3,
-          title: 'Nissan Altima 2020',
-          image: 'https://via.placeholder.com/100x100?text=Nissan+Altima',
-          price: '1,600,000 ₽',
-          year: 2020,
-          mileage: '35,000 км',
-          status: 'sold'
-        }
-      ]
-    }
+  computed: {
+    ...mapGetters({
+      myAds: 'cars/myAds'
+    })
   },
   methods: {
     getStatusText(status) {

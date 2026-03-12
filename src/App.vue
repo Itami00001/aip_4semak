@@ -33,6 +33,9 @@ export default {
     isAuthenticated() {
       return this.$store.getters['user/isAuthenticated']
     },
+    currentUser() {
+      return this.$store.getters['user/currentUser']
+    },
     menuLinks() {
       if (this.isAuthenticated) {
         return [
@@ -50,6 +53,15 @@ export default {
           {title:"Вход", icon:"mdi-login", url:"/login"},
           {title:"Регистрация", icon:"mdi-account-plus", url:"/registration"}
         ]
+      }
+    }
+  },
+  watch: {
+    currentUser(newUser) {
+      if (newUser) {
+        this.$store.commit('cars/SET_USER_ID', newUser.id)
+      } else {
+        this.$store.commit('cars/SET_USER_ID', null)
       }
     }
   },

@@ -7,6 +7,14 @@
             <v-toolbar-title>Регистрация в Автопарке</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
+            <v-alert
+              v-if="errorMessage"
+              type="error"
+              dismissible
+              class="mb-4"
+            >
+              {{ errorMessage }}
+            </v-alert>
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field
                 prepend-icon="mdi-account"
@@ -36,7 +44,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" :disabled="!valid" @click="register">Зарегистрироваться</v-btn>
+            <v-btn color="success" :disabled="!valid" @click="register">Зарегистрироваться</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -52,6 +60,7 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
+      errorMessage: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
@@ -81,6 +90,7 @@ export default {
           })
           .catch(error => {
             console.error('Ошибка регистрации:', error)
+            this.errorMessage = error.message
           })
       }
     }

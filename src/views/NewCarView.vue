@@ -79,7 +79,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" :disabled="!valid" @click="createAd">Создать объявление</v-btn>
+            <v-btn color="success" :disabled="!valid" @click="createAd">Создать объявление</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -107,8 +107,10 @@ export default {
     createAd() {
       if (this.$refs.form.validate()) {
         const carData = {
+          brand: this.car.brand,
+          model: this.car.model,
           title: `${this.car.brand} ${this.car.model} ${this.car.year}`,
-          image: `https://via.placeholder.com/300x200?text=${this.car.brand}+${this.car.model}`,
+          image: `https://i.pinimg.com/1200x/2a/9e/7c/2a9e7c28a7f282a17317ca1669b672aa.jpg`,
           price: this.car.price,
           year: parseInt(this.car.year),
           mileage: this.car.mileage,

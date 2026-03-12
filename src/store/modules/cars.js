@@ -1,6 +1,9 @@
+import allCars from '@/data/allCars.json'
+import userCars from '@/data/userCars.json'
+
 export default {
   state: {
-    cars: [],
+    cars: [...allCars, ...userCars],
     userId: null
   },
   getters: {
@@ -44,37 +47,22 @@ export default {
   },
   actions: {
     fetchCars({ commit }) {
-      // Здесь будет запрос к API
-      const cars = [
-        {
-          id: 1,
-          title: 'Toyota Camry 2022',
-          image: 'https://via.placeholder.com/300x200?text=Toyota+Camry',
-          price: '2,500,000 ₽',
-          year: 2022,
-          mileage: '15,000 км',
-          description: 'Отличное состояние, один владелец'
-        }
-      ]
-      commit('SET_CARS', cars)
+      commit('SET_CARS', [...allCars, ...userCars])
     },
     createCar({ commit, dispatch }, carData) {
       return dispatch('shared/requestHandler', async () => {
-        // Здесь будет API запрос для создания объявления
         commit('CREATE_CAR', carData)
         return carData
       })
     },
     updateCar({ commit, dispatch }, carData) {
       return dispatch('shared/requestHandler', async () => {
-        // Здесь будет API запрос для обновления объявления
         commit('UPDATE_CAR', carData)
         return carData
       })
     },
     deleteCar({ commit, dispatch }, carId) {
       return dispatch('shared/requestHandler', async () => {
-        // Здесь будет API запрос для удаления объявления
         commit('DELETE_CAR', carId)
         return carId
       })

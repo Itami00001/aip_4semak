@@ -19,7 +19,7 @@
                 <h2>{{ car.title }}</h2>
                 <h3 class="mb-2">{{ car.price }}</h3>
                 <p>{{ car.year }} • {{ car.mileage }}</p>
-                <v-btn color="primary" :to="'/car/' + car.id">Подробнее</v-btn>
+                <v-btn color="success" :to="'/car/' + car.id">Подробнее</v-btn>
               </div>
             </div>
           </v-carousel-item>
@@ -47,7 +47,7 @@
               <v-card-subtitle>{{ car.price }}</v-card-subtitle>
               <v-card-text>{{ car.description }}</v-card-text>
               <v-card-actions>
-                <v-btn color="primary" :to="'/car/' + car.id">Подробнее</v-btn>
+                <v-btn color="success" :to="'/car/' + car.id">Подробнее</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -58,45 +58,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'HomeView',
-  data() {
-    return {
-      featuredCars: [
-        {
-          id: 1,
-          title: 'Toyota Camry 2022',
-          image: 'https://via.placeholder.com/600x400?text=Toyota+Camry',
-          price: '2,500,000 ₽',
-          year: 2022,
-          mileage: '15,000 км'
-        },
-        {
-          id: 2,
-          title: 'Honda Civic 2021',
-          image: 'https://via.placeholder.com/600x400?text=Honda+Civic',
-          price: '1,800,000 ₽',
-          year: 2021,
-          mileage: '25,000 км'
-        }
-      ],
-      popularCars: [
-        {
-          id: 3,
-          title: 'Nissan Altima 2020',
-          image: 'https://via.placeholder.com/300x200?text=Nissan+Altima',
-          price: '1,600,000 ₽',
-          description: 'Отличное состояние, один владелец'
-        },
-        {
-          id: 4,
-          title: 'Mazda CX-5 2021',
-          image: 'https://via.placeholder.com/300x200?text=Mazda+CX-5',
-          price: '2,200,000 ₽',
-          description: 'Полный привод, кожаный салон'
-        }
-      ]
+  computed: {
+    ...mapGetters({
+      allCars: 'cars/allCars'
+    }),
+    featuredCars() {
+      return this.allCars.slice(0, 3)
+    },
+    popularCars() {
+      return this.allCars.slice(3, 7)
     }
+  },
+  created() {
+    this.$store.dispatch('cars/fetchCars')
   }
 }
 </script>
